@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy Birthday Jhansi</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Amita:wght@400;700&family=Pacifico&family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        html,
+        body {
+            height: 100%;
+            touch-action: none;
+        }
+
+        body {
+            overflow: hidden;
+            display: flex;
+            font-family: "Pacifico", sans-serif;
+            background: #21071e;
+            perspective: 1000px;
+            transform-style: preserve-3d;
+        }
+
+        #drag-container,
+        #spin-container {
+            position: relative;
+            display: flex;
+            margin: auto;
+            transform-style: preserve-3d;
+            transform: rotateX(-10deg);
+            z-index: 100;
+        }
+
+        #drag-container img,
+        #drag-container video {
+            transform-style: preserve-3d;
+            position: absolute;
+            left: 0;
+            object-fit: cover;
+            width: 86px;
+            height: 124px;
+            background-position: center;
+            background-position-y: 93px;
+            background-size: cover;
+            top: 0;
+            line-height: 200px;
+            font-size: 50px;
+            text-align: center;
+            box-shadow: 0 0 8px #fff;
+            -webkit-box-reflect: below 10px linear-gradient(transparent, transparent, #0005);
+            border: 4px solid #fff;
+            border-top-left-radius: 30px;
+            border-top-right-radius: 30px;
+            box-shadow: rgba(188, 188, 188, 0) 1px 4px 7px, rgba(204, 204, 204, 0.064) 1px 3px 6px;
+            animation: delayShadow 1s forwards;
+            animation-delay: 2s;
+        }
+
+        @keyframes delayShadow {
+            to {
+                box-shadow: rgb(0 0 0 / 0%) 1px 4px 7px, rgb(0 0 0 / 27%) 1px 3px 6px;
+            }
+        }
+
+        #drag-container img:hover,
+        #drag-container video:hover {
+            box-shadow: 0 0 15px #fffd;
+            -webkit-box-reflect: below 10px linear-gradient(transparent, transparent, #0007);
+            box-shadow: rgba(0, 0, 0, 0.17) 1px 4px 7px, rgba(0, 0, 0, 0.24) 1px 3px 6px;
+        }
+
+        #drag-container p {
+            line-height: 116px;
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            transform: translate(-50%, -50%) rotateX(90deg);
+            color: rgb(255 254 254);
+            animation: fadein ease 15s;
+        }
+
+        @keyframes fadein {
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
+        }
+
+        .button {
+            height: 121px;
+            padding: 10px 30px;
+            background: url('https://i.imgur.com/placeholder.png');
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: center;
+            border-radius: 20px;
+            cursor: pointer;
+            outline: none;
+            border: none;
+            position: absolute;
+            top: 13%;
+            left: 24%;
+            opacity: 0;
+            animation: showUp 1s forwards;
+            animation-delay: 5s;
+            transition: all .3s ease-in-out;
+        }
+
+        .button:hover {
+            transform: scale(2.1);
+        }
+
+        @keyframes showUp {
+            to {
+                opacity: 1;
+            }
+        }
+
+        #ground {
+            width: 900px;
+            height: 900px;
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            transform: translate(-50%, -50%) rotateX(90deg);
+            background: radial-gradient(center center, farthest-side, #9993, transparent);
+        }
+        /* --- NEW STYLES FOR SECOND NAVIGATION LINK (Tap my heart again) --- */
+.second-heart-link {
+    position: fixed;
+    bottom: 5vh;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 500;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-decoration: none;
+    cursor: pointer;
+    opacity: 0;
+    animation: fadeInUpGlow 1.5s ease-out 6s forwards; /* Appears after 6 seconds */
+    transition: transform 0.2s, filter 0.2s;
+    font-family: 'Pacifico', cursive;
+    color: #fff;
+}
+
+.second-heart-link:hover {
+    transform: translateX(-50%) scale(1.1);
+    filter: brightness(1.2);
+}
+
+.gheart-icon {
+    font-size: 3rem; /* Small pink heart */
+    filter: drop-shadow(0 0 5px #ff6b6b); /* Glowing pink shadow */
+    line-height: 1;
+    margin-bottom: 5px;
+}
+
+.heart-link-text {
+    font-size: 1rem;
+    text-shadow: 0 0 3px rgba(255, 255, 255, 0.7);
+}
+
+/* Animation for the new navigation heart */
+@keyframes fadeInUpGlow {
+    0% { 
+        opacity: 0; 
+        transform: translate(-50%, 50px); 
+    }
+    100% { 
+        opacity: 1; 
+        transform: translate(-50%, 0); 
+    }
+}
+
+
+        #music-container {
+            position: absolute;
+            top: 0;
+            left: 0;
+            display: none;
+        }
+
+        @keyframes spin {
+            from {
+                transform: rotateY(0deg);
+            }
+
+            to {
+                transform: rotateY(360deg);
+            }
+        }
+
+        @keyframes spinRevert {
+            from {
+                transform: rotateY(360deg);
+            }
+
+            to {
+                transform: rotateY(0deg);
+            }
+        }
+
+        p {
+            font-weight: 600;
+            font-size: 4vw;
+            text-align: center;
+        }
+
+        @media screen and (max-width: 658px) {
+            p {
+                font-weight: 600;
+                font-size: 12vw;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div id="drag-container">
+        <div id="spin-container">
+            <img src="jhansi1.jpg" alt="">
+            <img src="jhansi2.jpg" alt="">
+            <img src="jhansi3.jpg" alt="">
+            <img src="jhansi4.jpg" alt="">
+            <img src="jhansi5.jpg" alt="">
+            <img src="jhansi7.jpg" alt="">
+            <img src="jhansi6.jpg" alt="">
+            <img src="jhansi8.jpg" alt="">
+            <img src="clg.jpg" alt="">
+            <img src="WhatsApp Image 2025-10-25 at 20.53.34_f610e7a0.jpg" alt="">
+            <p style="">Happy<span style=""> Birthday</span> Jhansi</p>
+            <button class="button" onclick="confetti()"></button>
+        </div>
+        <div id="ground"></div>
+    </div>
+    <a href="message.html" class="second-heart-link">
+    <span class="gheart-icon">🩷</span>
+    <span class="heart-link-text">Tap my heart again</span>
+</a>
+
+    <div id="">
+        <audio id="background-audio" autoplay loop  style="display: none;">
+    <!-- Replace 'your_audio_file.mp3' with the actual path to your audio file -->
+    <source src="wish.mp3" type="audio/mpeg">
+    Your browser does not support the audio element.
+</audio>
+    </div>
+
+    <script src='https://cdn.jsdelivr.net/npm/canvas-confetti@1/dist/confetti.browser.min.js'></script>
+    <script>
+        // Carousel configuration
+        var radius = 240;
+        var autoRotate = true;
+        var rotateSpeed = -60;
+        var imgWidth = 120;
+        var imgHeight = 170;
+
+        setTimeout(init, 1000);
+
+        var odrag = document.getElementById('drag-container');
+        var ospin = document.getElementById('spin-container');
+        var aImg = ospin.getElementsByTagName('img');
+        var aVid = ospin.getElementsByTagName('video');
+        var aEle = [...aImg, ...aVid];
+
+        ospin.style.width = imgWidth + "px";
+        ospin.style.height = imgHeight + "px";
+
+        var ground = document.getElementById('ground');
+        ground.style.width = radius * 3 + "px";
+        ground.style.height = radius * 3 + "px";
+
+        function init(delayTime) {
+            for (var i = 0; i < aEle.length; i++) {
+                aEle[i].style.transform = "rotateY(" + (i * (360 / aEle.length)) + "deg) translateZ(" + radius + "px)";
+                aEle[i].style.transition = "transform 1s";
+                aEle[i].style.transitionDelay = delayTime || (aEle.length - i) / 4 + "s";
+            }
+        }
+
+        function applyTranform(obj) {
+            if (tY > 180) tY = 180;
+            if (tY < 0) tY = 0;
+            obj.style.transform = "rotateX(" + (-tY) + "deg) rotateY(" + (tX) + "deg)";
+        }
+
+        function playSpin(yes) {
+            ospin.style.animationPlayState = (yes ? 'running' : 'paused');
+        }
+
+        var sX, sY, nX, nY, desX = 0,
+            desY = 0,
+            tX = 0,
+            tY = 10;
+
+        if (autoRotate) {
+            var animationName = (rotateSpeed > 0 ? 'spin' : 'spinRevert');
+            ospin.style.animation = `${animationName} ${Math.abs(rotateSpeed)}s infinite linear`;
+        }
+
+        document.onpointerdown = function (e) {
+            clearInterval(odrag.timer);
+            e = e || window.event;
+            var sX = e.clientX,
+                sY = e.clientY;
+
+            this.onpointermove = function (e) {
+                e = e || window.event;
+                var nX = e.clientX,
+                    nY = e.clientY;
+                desX = nX - sX;
+                desY = nY - sY;
+                tX += desX * 0.1;
+                tY += desY * 0.1;
+                applyTranform(odrag);
+                sX = nX;
+                sY = nY;
+            };
+
+            this.onpointerup = function (e) {
+                odrag.timer = setInterval(function () {
+                    desX *= 0.95;
+                    desY *= 0.95;
+                    tX += desX * 0.1;
+                    tY += desY * 0.1;
+                    applyTranform(odrag);
+                    playSpin(false);
+                    if (Math.abs(desX) < 0.5 && Math.abs(desY) < 0.5) {
+                        clearInterval(odrag.timer);
+                        playSpin(true);
+                    }
+                }, 17);
+                this.onpointermove = this.onpointerup = null;
+            };
+
+            return false;
+        };
+
+        document.onmousewheel = function (e) {
+            e = e || window.event;
+            var d = e.wheelDelta / 20 || -e.detail;
+            radius += d;
+            init(1);
+        };
+
+        function confetti() {
+            var count = 200;
+            var defaults = {
+                origin: { y: 0.7 }
+            };
+
+            function fire(particleRatio, opts) {
+                confetti(Object.assign({}, defaults, opts, {
+                    particleCount: Math.floor(count * particleRatio)
+                }));
+            }
+
+            fire(0.25, {
+                spread: 26,
+                startVelocity: 55,
+            });
+            fire(0.2, {
+                spread: 60,
+            });
+            fire(0.35, {
+                spread: 100,
+                decay: 0.91,
+                scalar: 0.8
+            });
+            fire(0.1, {
+                spread: 120,
+                startVelocity: 25,
+                decay: 0.92,
+                scalar: 1.2
+            });
+            fire(0.1, {
+                spread: 120,
+                startVelocity: 45,
+            });
+        }
+        const audio = document.getElementById('background-audio');
+
+    // Attempt to play immediately (often blocked by browsers)
+    audio.play().catch(error => {
+        console.log("Autoplay failed, waiting for user interaction.");
+    });
+
+    // If you need the audio to play unmuted after user interaction:
+    document.body.addEventListener('click', () => {
+        if (audio.paused) {
+            audio.muted = false; // Unmute
+            audio.play().catch(e => console.error("Play failed after click:", e));
+        }
+    }, { once: true });
+    </script>
+</body>
+
+</html>

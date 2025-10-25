@@ -1,0 +1,233 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>For Jannu — A Message from Your Brother</title>
+<style>
+  :root{
+    --bg1: #0f1724; /* deep navy */
+    --bg2: #2b0f3b; /* deep purple */
+    --accent1: #ff6bcb; /* pink */
+    --accent2: #7be3ff; /* cyan */
+    --glass: rgba(255,255,255,0.06);
+  }
+  html,body{height:100%;margin:0;font-family: system-ui,-apple-system,Segoe UI,Roboto,"Helvetica Neue",Arial;}
+  body{
+    background: radial-gradient(1200px 800px at 10% 10%, rgba(123,227,255,0.06), transparent),
+                radial-gradient(1000px 700px at 90% 90%, rgba(255,107,203,0.04), transparent),
+                linear-gradient(135deg,var(--bg1),var(--bg2));
+    color:#e6eef8;
+    overflow-x:hidden;
+  }
+  .container{max-width:980px;margin:40px auto;padding:32px;border-radius:18px;background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));box-shadow:0 8px 30px rgba(2,6,23,0.6);backdrop-filter: blur(6px);position:relative;}
+  header{display:flex;align-items:center;gap:18px;margin-bottom:10px}
+  .logo{
+    width:76px;height:76px;border-radius:14px;background:linear-gradient(135deg,var(--accent1),var(--accent2));display:flex;align-items:center;justify-content:center;font-weight:700;font-size:22px;color:#071427;box-shadow:0 6px 18px rgba(0,0,0,0.4);
+  }
+  h1{margin:0;font-size:30px;letter-spacing:0.6px}
+  p.lead{margin-top:6px;color:rgba(230,238,248,0.8)}
+
+  /* Floating hearts background */
+  .hearts{position:fixed;left:0;top:0;right:0;bottom:0;pointer-events:none;overflow:hidden;z-index:0}
+  .heart{
+    position:absolute;width:36px;height:36px;background:linear-gradient(45deg,#ff7eb3,#ffd86b);
+    transform:rotate(45deg);border-radius:6px;opacity:0.9;
+    animation: floatUp linear infinite;
+    box-shadow:0 6px 14px rgba(0,0,0,0.25);
+  }
+  .heart:before,.heart:after{content:"";position:absolute;background:inherit;border-radius:50%;width:36px;height:36px;top:-18px;left:0}
+  .heart:after{left:-18px;top:0}
+  @keyframes floatUp{
+    from{transform:translateY(100vh) rotate(45deg) scale(0.9);opacity:0}
+    10%{opacity:0.9}
+    to{transform:translateY(-20vh) rotate(45deg) scale(1.1);opacity:0}
+  }
+
+  /* Points list */
+  .points{position:relative;z-index:2}
+  .point{display:grid;grid-template-columns:96px 1fr;gap:18px;padding:18px;margin:18px 0;border-radius:14px;background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));box-shadow:inset 0 1px 0 rgba(255,255,255,0.02);align-items:center;opacity:0;transform:translateY(18px) scale(0.99);animation:popIn 0.8s forwards;}
+  .point .gif{width:96px;height:96px;display:flex;align-items:center;justify-content:center;border-radius:12px;overflow:hidden;background:var(--glass);box-shadow:0 6px 18px rgba(0,0,0,0.45)}
+  .point h3{margin:0;font-size:20px;color:#fff}
+  .point p{margin:6px 0 0;color:rgba(230,238,248,0.9);line-height:1.4}
+
+  @keyframes popIn{
+    to{opacity:1;transform:translateY(0) scale(1);}
+  }
+
+  /* emotion styles */
+  .love{border-left:4px solid #ff6bcb}
+  .joy{border-left:4px solid #7be3ff}
+  .sad{border-left:4px solid #8fb2ff}
+  .wish{border-left:4px solid #ffd86b}
+  .closing{border-left:4px solid #b07bff}
+
+  /* small badges */
+  .badge{display:inline-block;padding:6px 12px;border-radius:999px;background:linear-gradient(90deg, rgba(255,255,255,0.03), rgba(255,255,255,0.02));font-weight:600;color:#fff;font-size:13px}
+
+  /* signature */
+  .signature{margin-top:18px;text-align:right;color:rgba(230,238,248,0.85);font-weight:600}
+
+  /* subtle floating teddy animation */
+  .gif img{width:100%;height:100%;object-fit:cover;animation:wiggle 4s ease-in-out infinite}
+  @keyframes wiggle{0%{transform:translateY(0) rotate(0)}50%{transform:translateY(-6px) rotate(-1deg)}100%{transform:translateY(0) rotate(0)}}
+
+  /* responsive */
+  @media (max-width:640px){
+    .point{grid-template-columns:72px 1fr;padding:12px}
+    .logo{width:64px;height:64px;font-size:18px}
+    h1{font-size:22px}
+  }
+
+  /* controls */
+  .controls{display:flex;gap:10px;align-items:center;margin-top:10px}
+  .btn{background:linear-gradient(90deg,var(--accent1),var(--accent2));padding:10px 14px;border-radius:10px;color:#071427;font-weight:700;border:none;cursor:pointer;box-shadow:0 8px 24px rgba(123,227,255,0.06);}
+  .btn.secondary{background:transparent;border:1px solid rgba(255,255,255,0.06);color:#e6eef8}
+
+  /* small footer note */
+  .note{margin-top:18px;color:rgba(230,238,248,0.65);font-size:14px}
+
+</style>
+</head>
+<body>
+<div class="hearts" aria-hidden="true"></div>
+
+<div class="container" role="main">
+  <header>
+    <div class="logo">J 💖</div>
+    <div id="">
+        <audio id="background-audio" autoplay loop style="display: none;">
+    <!-- Replace 'your_audio_file.mp3' with the actual path to your audio file -->
+    <source src="wish.mp3" type="audio/mpeg">
+    Your browser does not support the audio element.
+</audio>
+    </div>
+    <div>
+      <h1>For Jannu — My Heartfelt Words</h1>
+      <p class="lead">A few honest points from your brother. I hope these reach your heart.</p>
+    </div>
+  </header>
+
+  <div class="points">
+    <!-- Point 1: Love like mother -->
+    <div class="point love" style="animation-delay:0.4s">
+      <div class="gif"><img src="bear-pat.webp" alt="teddy-love"></div>
+      <div>
+        <h3>Akka, you mean everything to me</h3>
+        <p>Your love is my shelter — more than anyone else. The way you care feels like a mother's love: warm, protective, and endless.</p>
+      </div>
+    </div>
+
+    <!-- Point 2: With her, tensions disappear -->
+    <div class="point joy" style="animation-delay:1.0s">
+      <div class="gif"><img src="joy.webp" alt="teddy-joy"></div>
+      <div>
+        <h3>When you're with me, all worries vanish</h3>
+        <p>The world becomes bright and free — I laugh, I breathe, and life feels joyful and easy when you're by my side.</p>
+      </div>
+    </div>
+
+    <!-- Point 3: Sad/egoistic when she with others -->
+    <div class="point sad" style="animation-delay:1.6s">
+      <div class="gif"><img src="sad.webp" alt="teddy-sad"></div>
+      <div>
+        <h3>Sometimes I feel sad and jealous</h3>
+        <p>When you spend time with others more than me, it hurts. I feel small, egoistic, and a bit lost — I miss our old closeness.</p>
+      </div>
+    </div>
+
+    <!-- Point 4: Wish to spend time -->
+    <div class="point wish" style="animation-delay:2.2s">
+      <div class="gif"><img src="please.webp" alt="teddy-wish"></div>
+      <div>
+        <h3>I wish you'd spare some time for me</h3>
+        <p>Just a little time, a small chat, a walk together — those moments mean the world. Please don't drift away; I need you close.</p>
+      </div>
+    </div>
+
+    <!-- Point 5: Closing note -->
+    <div class="point closing" style="animation-delay:2.8s">
+      <div class="gif"><img src="always.webp" alt="teddy-closing"></div>
+      <div>
+        <h3>You will always be my sister</h3>
+        <p>No matter what — you'll always be my peace, my joy, and my home. I love you endlessly, and I wish for our bond to stay forever.</p>
+      </div>
+    </div>
+
+    <div class="signature" style="animation-delay:3.4s">
+      
+      
+  <div style="text-align:left;margin-bottom:12px;">
+    <a href="https://jhansi-web.web.app" target="_blank" class="btn" style="text-decoration:none;display:inline-block;">My Small Gift for You 🎁</a>
+  </div>
+  <div class="badge">With endless love</div>
+  <div style="margin-top:8px">— Your Brother 💙</div>
+</div>
+    
+
+  </div>
+</div>
+
+<script>
+// Generate floating hearts with random positions and sizes
+const heartsEl = document.querySelector('.hearts');
+function createHearts(count=14){
+  heartsEl.innerHTML='';
+  for(let i=0;i<count;i++){
+    const h = document.createElement('div');
+    h.className='heart';
+    const size = Math.floor(Math.random()*28)+22;
+    h.style.width = size+'px';
+    h.style.height = size+'px';
+    h.style.left = (Math.random()*100).toFixed(2)+'%';
+    h.style.animationDuration = (8 + Math.random()*8).toFixed(2)+'s';
+    h.style.animationDelay = (-Math.random()*8).toFixed(2)+'s';
+    h.style.background = `linear-gradient(45deg, rgba(255,107,203,0.9), rgba(123,227,255,0.9))`;
+    heartsEl.appendChild(h);
+  }
+}
+createHearts(18);
+
+// Replay animations by toggling DOM changes
+const replayBtn = document.getElementById('replay');
+replayBtn.addEventListener('click', ()=>{
+  const points = document.querySelectorAll('.point, .signature');
+  points.forEach((el, idx)=>{
+    el.style.animation = 'none';
+    // force reflow
+    void el.offsetWidth;
+    const delay = parseFloat(getComputedStyle(el).getPropertyValue('animation-delay')) || (0.4 + idx*0.6);
+    el.style.animation = `popIn 0.8s forwards ${delay}s`;
+  });
+});
+
+// toggle hearts
+const toggle = document.getElementById('toggleHearts');
+toggle.addEventListener('click', ()=>{
+  heartsEl.style.display = heartsEl.style.display === 'none' ? 'block' : 'none';
+});
+
+// Stagger initial delays (set as inline styles already) but ensure they run
+window.addEventListener('load', ()=>{
+  const points = document.querySelectorAll('.point, .signature');
+  points.forEach((el)=>{
+    // nothing extra needed; CSS handles it
+  });
+});
+ const audio = document.getElementById('background-audio');
+
+    // Attempt to play immediately (often blocked by browsers)
+    audio.play().catch(error => {
+        console.log("Autoplay failed, waiting for user interaction.");
+    });
+
+    // If you need the audio to play unmuted after user interaction:
+    document.body.addEventListener('click', () => {
+        if (audio.paused) {
+            audio.muted = false; // Unmute
+            audio.play().catch(e => console.error("Play failed after click:", e));
+        }
+    }, { once: true });
+</script>
+</body>
+</html>
